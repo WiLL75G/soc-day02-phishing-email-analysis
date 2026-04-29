@@ -14,9 +14,9 @@
 
 ## Executive Summary
 
-A suspicious email was analyzed and confirmed as a phishing attempt. The email demonstrated multiple indicators of compromise, including sender spoofing, header inconsistencies, and malicious or untrusted links.
+> A suspicious email was analyzed and confirmed as a phishing attempt. The email demonstrated multiple indicators of compromise, including sender spoofing, header inconsistencies, and malicious or untrusted links.
 
-The objective of the attacker was likely credential theft or user deception through impersonation of a legitimate organization.
+> The objective of the attacker was likely credential theft or user deception through impersonation of a legitimate organization.
 
 ---
 
