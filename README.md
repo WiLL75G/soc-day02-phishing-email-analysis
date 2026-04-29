@@ -32,7 +32,7 @@
 
 ### 1. Email Identification
 
-![Email Overview](./images/01_email.png)
+![Email Overview](01_email.png)
 
 - Suspicious email received and flagged for investigation  
 - Initial review showed impersonation characteristics  
