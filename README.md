@@ -149,7 +149,7 @@ This investigation demonstrates the ability to:
 ```
 ├── README.md
 ├── images/
-│   ├── 01_email.png
+│   ├── 01_email_overview.png
 │   ├── 02_header_analysis_1.png
 │   ├── 02_header_analysis_2.png
 │   ├── 03_link_check_1.png
