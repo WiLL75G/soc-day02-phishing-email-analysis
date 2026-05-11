@@ -164,4 +164,3 @@ This investigation demonstrates the ability to:
 ## Conclusion
 
 This analysis confirms a phishing email attack using spoofed sender identity and malicious links. Through structured SOC investigation techniques, the threat was successfully identified and classified before user compromise occurred.
-```
