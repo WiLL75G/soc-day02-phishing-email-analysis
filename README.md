@@ -1,4 +1,4 @@
-# Day 02 – SOC Tier 1 Incident Report: Phishing Email Analysis
+# Phishing Email Triage & IOC Extraction (Email Threat Intelligence)
 
 ---
 
