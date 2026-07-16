@@ -1,148 +1,120 @@
-# Phishing Email Triage & IOC Extraction (Email Threat Intelligence)
+# Phishing Email Triage and IOC Extraction
 
----
+Taking a suspicious email apart at the header and link layer, confirming it as phishing on technical evidence rather than gut feel, and pulling out the indicators worth blocking.
 
-## Incident Summary
+## At a Glance
 
-- **Incident Type:** Phishing Email Attempt
-- **Severity:** High
-- **Detection Method:** Email Header & Link Analysis
-- **Tools Used:** MXToolbox, VirusTotal, Web Browser OSINT
-- **Status:** Confirmed Phishing Attempt
+| Field | Detail |
+| --- | --- |
+| Attack Type | Phishing, credential theft attempt |
+| Vector | Email with spoofed sender and embedded links |
+| Tools Used | MXToolbox, VirusTotal, browser based OSINT |
+| Target | End user mailbox, simulated environment |
+| Outcome | Confirmed phishing, IOCs extracted and documented |
 
----
+## What Happened
 
-## Executive Summary
+An email arrived impersonating a legitimate organisation. It looked convincing enough to pass a quick glance, which is the entire point of a phishing email.
 
-> A suspicious email was analyzed and confirmed as a phishing attempt. The email demonstrated multiple indicators of compromise, including sender spoofing, header inconsistencies, and malicious or untrusted links.
+Content is not evidence. Anyone can write a convincing sentence. So the investigation ignored what the email said and went after what it could not fake: the headers and the links.
 
-> The objective of the attacker was likely credential theft or user deception through impersonation of a legitimate organization.
-
----
-
-## Affected Asset
-
-- **Target:** End user mailbox (simulated environment)
-- **Attack Vector:** Email (Phishing)
-- **Delivery Method:** Spoofed sender + embedded links
-
----
-
-## Detection Methodology
-
-### 1. Email Identification
+## Email Identification
 
 ![Email Overview](./images/01_email_overview.png)
 
-- Suspicious email received and flagged for investigation  
-- Initial review showed impersonation characteristics  
-- Email selected for deep forensic analysis  
+The email was flagged on impersonation characteristics during initial review and pulled out for full analysis rather than deleted on sight. Deleting it answers nothing. Analysing it produces indicators.
 
----
-
-### 2. Header Analysis
+## Header Analysis
 
 ![Header Analysis 1](./images/02_header_analysis_1.png)
 
 ![Header Analysis 2](./images/02_header_analysis_2.png)
 
-- Extracted full email headers  
-- Analyzed routing path and sender metadata  
-- Detected inconsistencies between:
-  - From address  
-  - Return-Path  
-- Identified suspicious originating infrastructure  
+Full headers were extracted and the routing path traced back to origin.
 
----
+The display name is decoration. The Return Path is where a reply actually goes, and it did not match the From address. That mismatch is the sender telling on itself.
 
-### 3. Link Analysis
+Originating infrastructure was traced and did not belong to the brand being impersonated.
+
+## Link Analysis
 
 ![Link Check 1](./images/03_link_check_1.png)
 
 ![Link Check 2](./images/03_link_check_2.png)
 
-- Extracted embedded URLs from email body  
-- Checked domains using threat intelligence tools  
-- Identified:
-  - Redirect behavior  
-  - Untrusted domains  
-  - Potential credential harvesting links  
+Embedded URLs were extracted from the body and checked against threat intelligence sources rather than clicked.
 
----
+Findings: redirect behaviour hiding the true destination, untrusted domains behind friendly link text, and a landing page structure consistent with credential harvesting.
 
-### 4. Indicator Extraction
+## Indicators Extracted
 
 ![Indicators](./images/04_indicators.png)
 
-Key Indicators of Compromise (IOCs):
+Spoofed sender domain built to resemble a legitimate brand.
 
-- Spoofed sender domain resembling legitimate brand  
-- Mismatch between sender and return-path  
-- Malicious or suspicious embedded URLs  
-- Unverified originating IP address  
-- Deceptive email content structure  
+Mismatch between the From address and the Return Path.
 
----
+Suspicious embedded URLs with redirect behaviour.
+
+Unverified originating IP address.
+
+Message structure engineered for urgency and deception.
 
 ## Detection Logic
 
-An email is classified as phishing if the following conditions are met:
+An email is classified as phishing when the technical evidence stacks:
 
-- Sender identity cannot be verified  
-- Header metadata shows inconsistencies  
-- Links point to untrusted or suspicious domains  
-- Infrastructure reputation is poor or unknown  
-- Message content attempts urgency or deception  
+Sender identity cannot be verified against the claimed domain.
 
----
+Header metadata is internally inconsistent.
+
+Links resolve to untrusted or unknown infrastructure.
+
+Infrastructure reputation is poor or absent.
+
+Content applies urgency pressure to force action before thought.
+
+No single condition convicts. The combination does.
 
 ## MITRE ATT&CK Mapping
 
-| Tactic              | Technique ID | Description              |
-|--------------------|--------------|--------------------------|
-| Initial Access     | T1566        | Phishing                 |
-| Spearphishing Link | T1566.002    | Malicious URL Delivery   |
-| Masquerading      | T1036        | Domain Impersonation     |
+| Tactic | Technique ID | Description |
+| --- | --- | --- |
+| Initial Access | T1566 | Phishing |
+| Initial Access | T1566.002 | Spearphishing link |
+| Defence Evasion | T1036 | Masquerading, domain impersonation |
 
----
+## Analyst Conclusion
 
-## SOC Analyst Findings
+Email confirmed as a phishing attempt on header and link evidence.
 
-- Email confirmed as phishing attempt  
-- Attacker used domain spoofing techniques  
-- Embedded links likely intended for credential theft  
-- Email bypassed basic trust filters but failed technical validation  
-- Multiple indicators confirm malicious intent  
+Attacker used domain spoofing to borrow trust from a real brand.
 
----
+Embedded links pointed to infrastructure consistent with credential harvesting.
 
-## SOC Analyst Response
+The email passed basic trust filters and failed technical validation. That gap is exactly why analysts read headers.
 
-- Marked email as malicious  
-- Blocked sender domain (recommended)  
-- Reported URLs to threat intelligence platforms  
-- Recommended user awareness alert for similar emails  
-- Added IOCs to detection rules  
+## Recommended Response
 
----
+Mark the email malicious and block the sender domain.
 
-## Analyst Insight
+Submit the extracted URLs to threat intelligence platforms.
 
-Phishing attacks rely heavily on social engineering and infrastructure deception. SOC analysts must focus on metadata validation and link intelligence rather than email content alone.
+Add the IOCs to detection rules so the next one is caught on delivery.
 
----
+Issue a user awareness notice covering this specific lure pattern.
 
-## Learning Outcome
+## What This Lab Demonstrates
 
-This investigation demonstrates the ability to:
+Reading email headers and spotting sender spoofing from routing metadata.
 
-- Analyze email headers for spoofing  
-- Identify malicious URLs using OSINT tools  
-- Extract and interpret IOCs  
-- Apply SOC reasoning to phishing detection  
-- Map real-world attacks to MITRE ATT&CK framework  
+Investigating URLs safely using OSINT tooling instead of clicking them.
 
----
+Extracting IOCs in a form that can be actioned into blocklists and detection rules.
+
+Reaching a verdict on technical evidence rather than on how the email reads.
+
+Mapping observed behaviour to MITRE ATT&CK.
 
 ## Repository Structure
 
@@ -156,11 +128,11 @@ This investigation demonstrates the ability to:
 │   ├── 03_link_check_2.png
 │   ├── 04_indicators.png
 │   └── 05_conclusion.png
-
 ```
 
 ---
 
-## Conclusion
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-WilliamInCyber-blue?style=flat&logo=linkedin)](https://linkedin.com/in/WilliamInCyber)
+[![X](https://img.shields.io/badge/X-WilliamInCyber-black?style=flat&logo=x)](https://x.com/WilliamInCyber)
 
-This analysis confirms a phishing email attack using spoofed sender identity and malicious links. Through structured SOC investigation techniques, the threat was successfully identified and classified before user compromise occurred.
+Send README 3.
