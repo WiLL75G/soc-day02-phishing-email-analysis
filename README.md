@@ -189,7 +189,7 @@ The message used impersonation characteristics intended to make the email appear
 
 This mapping represents the observed impersonation behavior.
 
-## Analyst Verdict
+## Analyst Conclusion
 
 The combined email, header, infrastructure, and threat intelligence evidence supports classifying the message as a phishing attempt.
 
