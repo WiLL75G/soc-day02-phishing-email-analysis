@@ -189,21 +189,16 @@ The message used impersonation characteristics intended to make the email appear
 
 This mapping represents the observed impersonation behavior.
 
-## Analyst Conclusion
+## Analyst Verdict
 
-The combined evidence supports classifying the message as a phishing attempt.
+The combined email, header, infrastructure, and threat intelligence evidence supports classifying the message as a phishing attempt.
 
-The verdict was not based only on the appearance or wording of the email.
+The sender information was inconsistent, the Return Path did not match the visible sender information, and the originating IP `45.33.32.156` had supporting reputation findings in VirusTotal.
 
-Header inconsistencies, sender information, the originating IP, associated indicators, and threat intelligence findings were considered together.
+No single finding was treated as proof by itself. The verdict came from multiple technical findings pointing in the same direction.
 
-The VirusTotal result strengthened the investigation, but it was treated as supporting evidence rather than the sole reason for the verdict.
+**Verdict:** The available evidence supports the phishing classification.
 
-This approach produced a conclusion based on multiple technical findings instead of one suspicious characteristic.
-
-![Investigation Conclusion](./images/05_conclusion.png)
-
-**Verdict:** The combined email, header, infrastructure, and threat intelligence evidence supports the phishing classification.
 
 ## Incident Report
 
