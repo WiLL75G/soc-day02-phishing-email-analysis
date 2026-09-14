@@ -2,6 +2,10 @@
 
 Investigating a suspicious email through header analysis, threat intelligence, and IOC extraction to reach a phishing verdict based on technical evidence.
 
+![Phishing Investigation Flow](./images/00_architecture.png)
+
+The investigation follows the email from initial review through header analysis, infrastructure analysis, IOC extraction, and the final analyst verdict.
+
 ## At a Glance
 
 | Field | Detail |
@@ -30,27 +34,6 @@ The investigation focused on four questions.
 2. What does the header information reveal about the message?
 3. What can threat intelligence tell me about the associated infrastructure?
 4. Does the combined evidence support a phishing verdict?
-
-## Investigation Flow
-
-```text
-Suspicious Email
-      |
-      v
-Initial Review
-      |
-      v
-Header Analysis
-      |
-      v
-Infrastructure Analysis
-      |
-      v
-IOC Extraction
-      |
-      v
-Analyst Verdict
-```
 
 ## Initial Email Review
 
@@ -113,7 +96,7 @@ The IP analyzed was:
 VirusTotal showed that:
 
 ```text
-4 / 94 security vendors flagged the IP address as malicious.
+4 out of 94 security vendors flagged the IP address as malicious.
 ```
 
 This result was treated as supporting evidence rather than proof by itself.
@@ -186,7 +169,7 @@ Header analysis identified inconsistencies in the sender information.
 
 The originating IP was extracted and investigated using threat intelligence.
 
-VirusTotal showed that 4 of 94 security vendors flagged the IP as malicious.
+VirusTotal showed that 4 out of 94 security vendors flagged the IP as malicious.
 
 Additional indicators were extracted and documented for further investigation and response.
 
@@ -221,6 +204,16 @@ This approach produced a conclusion based on multiple technical findings instead
 ![Investigation Conclusion](./images/05_conclusion.png)
 
 **Verdict:** The combined email, header, infrastructure, and threat intelligence evidence supports the phishing classification.
+
+## Incident Report
+
+After completing the investigation, I documented the findings in a short SOC incident report.
+
+The report brings together the header findings, threat intelligence results, extracted indicators, analyst conclusion, and recommended response.
+
+[View the full incident report](./phishing_email_incident_report.pdf)
+
+**Verdict:** The phishing investigation was documented in a report that another analyst or security team could review.
 
 ## Recommended Response
 
@@ -289,6 +282,7 @@ This project demonstrates my ability to:
 * Combine multiple pieces of evidence before reaching a verdict
 * Map observed phishing behavior to MITRE ATT&CK
 * Recommend practical response actions
+* Document an investigation in a professional incident report
 * Communicate a defensible analyst conclusion
 
 ## Repository Structure
@@ -296,7 +290,9 @@ This project demonstrates my ability to:
 ```text
 soc-day02-phishing-email-analysis/
 ├── README.md
+├── phishing_email_incident_report.pdf
 └── images/
+    ├── 00_architecture.png
     ├── 01_email_overview.png
     ├── 02_header_analysis_1.png
     ├── 02_header_analysis_2.png
