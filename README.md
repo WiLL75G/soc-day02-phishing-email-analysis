@@ -45,7 +45,7 @@ Rather than classifying the email from its appearance alone, I moved into techni
 
 ![Email Overview](./images/01_email_overview.png)
 
-The email content provided context, but it was not enough by itself to confirm phishing.
+The email content established the impersonation and urgency that guided the next stage of header analysis.
 
 **Verdict:** The message contained characteristics that justified deeper investigation.
 
@@ -62,7 +62,7 @@ I focused on the sender information, Return Path, originating IP, routing inform
 The header analysis identified sender information associated with:
 
 ```text
-security@paypal-alert.com
+security@paypa1-alert.com
 ```
 
 The analysis also exposed the originating IP:
@@ -73,11 +73,9 @@ The analysis also exposed the originating IP:
 
 ![Header Analysis 2](./images/02_header_analysis_2.png)
 
-The Return Path did not match the visible sender information.
+The Return Path is used during email delivery for handling returned or failed messages. In this case, it did not match the visible sender information.
 
-The Return Path is used during email delivery for handling returned or failed messages. A mismatch can be useful during phishing triage, but it does not prove malicious activity by itself.
-
-The header evidence therefore needed to be considered with the rest of the investigation.
+That inconsistency gave me a concrete reason to investigate the sender identity and originating infrastructure further.
 
 **Verdict:** The sender and header information contained inconsistencies that required further validation.
 
@@ -99,9 +97,7 @@ VirusTotal showed that:
 4 out of 94 security vendors flagged the IP address as malicious.
 ```
 
-This result was treated as supporting evidence rather than proof by itself.
-
-Threat intelligence results can differ between vendors, and reputation should always be considered together with the surrounding investigation.
+VirusTotal added reputation context to `45.33.32.156`, with 4 out of 94 security vendors flagging the address as malicious. I used that result to assess the infrastructure already identified through the email headers.
 
 ![Link Check 2](./images/03_link_check_2.png)
 
@@ -139,9 +135,7 @@ They can support searching, correlation, blocking, and future detection.
 
 ## Detection Reasoning
 
-I did not classify the email as phishing because of one suspicious field.
-
-The verdict came from combining multiple pieces of evidence.
+The phishing classification emerged when the sender identity and header inconsistencies aligned with the threat intelligence findings on the associated infrastructure.
 
 I considered:
 
@@ -152,12 +146,6 @@ I considered:
 * Threat intelligence results
 * Infrastructure information
 * Social engineering characteristics
-
-A suspicious header field can have a legitimate explanation.
-
-An IP reputation result can also be incomplete or misleading when viewed alone.
-
-The evidence becomes stronger when independent findings point in the same direction.
 
 ## Investigation Findings
 
@@ -191,14 +179,9 @@ This mapping represents the observed impersonation behavior.
 
 ## Analyst Conclusion
 
-The combined email, header, infrastructure, and threat intelligence evidence supports classifying the message as a phishing attempt.
-
-The sender information was inconsistent, the Return Path did not match the visible sender information, and the originating IP `45.33.32.156` had supporting reputation findings in VirusTotal.
-
-No single finding was treated as proof by itself. The verdict came from multiple technical findings pointing in the same direction.
+The header inconsistencies and the originating IP established the initial suspicion. Threat intelligence on that IP added reputation evidence that supported the phishing classification.
 
 **Verdict:** The available evidence supports the phishing classification.
-
 
 ## Incident Report
 
@@ -236,19 +219,7 @@ The next question is whether the same indicators appeared elsewhere or whether a
 
 ## Lessons Learned
 
-The main lesson from this investigation was that phishing analysis becomes stronger when several independent pieces of evidence are combined.
-
-A Return Path mismatch alone does not prove phishing.
-
-Urgent language alone does not prove phishing.
-
-A threat intelligence result alone does not prove phishing.
-
-In this investigation, the useful conclusion came from connecting the sender information, header inconsistencies, originating IP, infrastructure information, and reputation findings.
-
-The lesson was simple.
-
-Build the verdict from evidence, not from one suspicious signal.
+This investigation showed me how email evidence can lead into infrastructure analysis. The originating IP extracted from the headers became a pivot into threat intelligence, connecting message analysis with infrastructure context.
 
 ## What I Would Improve
 
@@ -274,7 +245,7 @@ This project demonstrates my ability to:
 * Interpret VirusTotal results without treating them as absolute proof
 * Extract and document indicators
 * Separate suspicious characteristics from confirmed findings
-* Combine multiple pieces of evidence before reaching a verdict
+* Pivot from email header evidence into a wider phishing investigation
 * Map observed phishing behavior to MITRE ATT&CK
 * Recommend practical response actions
 * Document an investigation in a professional incident report
